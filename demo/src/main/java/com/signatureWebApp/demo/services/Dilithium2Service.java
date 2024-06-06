@@ -1,6 +1,7 @@
 package com.signatureWebApp.demo.services;
 
 import java.security.*;
+import java.security.spec.InvalidKeySpecException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.signatureWebApp.demo.utils.KeyPairDTO;
 
 import net.thiim.dilithium.interfaces.DilithiumParameterSpec;
+import net.thiim.dilithium.interfaces.DilithiumPrivateKeySpec;
 import net.thiim.dilithium.provider.*;
 import net.thiim.dilithium.provider.DilithiumProvider;
 import net.thiim.dilithium.impl.PolyVec;
@@ -36,7 +38,8 @@ public class Dilithium2Service {
             System.out.println("Successfully got instance of Dilithium provider.");
             keyPairGenerator.initialize(DilithiumParameterSpec.LEVEL2, new SecureRandom());
             KeyPair kp = keyPairGenerator.generateKeyPair();
-            
+            System.out.println(kp.getPrivate());
+
             KeyPairDTO keyPairDTO = new KeyPairDTO();
             keyPairDTO.setPublicKey(Base64.getEncoder().encodeToString(kp.getPublic().getEncoded()));
             keyPairDTO.setPrivateKey(Base64.getEncoder().encodeToString(kp.getPrivate().getEncoded()));
@@ -49,6 +52,20 @@ public class Dilithium2Service {
     }
 
     public String signMessage(String privateKey, String message) {
-        return "hi";
+        try {
+            byte[] privateKeyBytes = Base64.getDecoder().decode(privateKey);
+            KeyFactory keyFactory = KeyFactory.getInstance("Dilithium");
+            PrivateKey privateKeyForSign = keyFactory.generatePrivate(new DilithiumPrivateKeySpec(DilithiumParameterSpec.LEVEL2, privateKeyBytes));
+            
+            Signature sig = Signature.getInstance("Dilithium");
+            sig.initSign(privateKeyForSign);
+            sig.update(message.getBytes());
+            byte[] signature = sig.sign();
+            return Base64.getEncoder().encodeToString(signature);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException | SignatureException | InvalidKeyException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return "hi";
+        }
     }
 }
