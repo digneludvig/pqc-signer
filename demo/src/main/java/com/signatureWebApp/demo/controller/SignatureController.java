@@ -26,7 +26,7 @@ public class SignatureController {
     }
 
     @PostMapping("dilithium2/sign")
-    public String signMessage(@RequestBody SignatureController.signRequest request) {
+    public String signMessage(@RequestBody SignatureController.SignRequest request) {
         return dilithium2Service.signMessage(request.getPrivateKey(), request.getMessage());
     }
 
