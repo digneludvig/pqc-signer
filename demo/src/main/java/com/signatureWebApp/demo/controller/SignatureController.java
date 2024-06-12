@@ -30,6 +30,11 @@ public class SignatureController {
         return dilithium2Service.signMessage(request.getPrivateKey(), request.getMessage());
     }
 
+    @PostMapping("dilithium2/verify")
+    public Boolean verifySignature(@RequestBody SignatureController.VerifyRequest request) {
+        return dilithium2Service.verifySignature(request.getPublicKey(), request.getMessage(), request.getSignature());
+    }
+
     public static class SignRequest {
         private String privateKey;
         private String message;
@@ -48,6 +53,36 @@ public class SignatureController {
 
         public void setMessage(String message) {
             this.message = message;
+        }
+    }
+
+    public static class VerifyRequest {
+        private String publicKey;
+        private String message;
+        private String signature;
+
+        public String getPublicKey() {
+            return publicKey;
+        }
+
+        public void setPublicKey(String publicKey) {
+            this.publicKey = publicKey;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getSignature() {
+            return signature;
+        }
+
+        public void setSignature(String signature) {
+            this.signature = signature;
         }
     }
 }

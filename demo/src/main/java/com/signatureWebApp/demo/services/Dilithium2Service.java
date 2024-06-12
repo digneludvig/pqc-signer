@@ -10,6 +10,7 @@ import com.signatureWebApp.demo.utils.KeyPairDTO;
 
 import net.thiim.dilithium.interfaces.DilithiumParameterSpec;
 import net.thiim.dilithium.interfaces.DilithiumPrivateKeySpec;
+import net.thiim.dilithium.interfaces.DilithiumPublicKeySpec;
 import net.thiim.dilithium.provider.*;
 import net.thiim.dilithium.provider.DilithiumProvider;
 import net.thiim.dilithium.impl.PolyVec;
@@ -65,7 +66,25 @@ public class Dilithium2Service {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | SignatureException | InvalidKeyException e) {
             e.printStackTrace();
             // Handle the exception appropriately
-            return "hi";
+            return "Error signing message.";
+        }
+    }
+
+    public Boolean verifySignature(String publicKey, String message, String signature) {
+        try {
+            byte[] publicKeyBytes = Base64.getDecoder().decode(publicKey);
+            byte[] signatureBytes = Base64.getDecoder().decode(signature);
+            KeyFactory keyFactory = KeyFactory.getInstance("Dilithium");
+            PublicKey publicKeyForVerify = keyFactory.generatePublic(new DilithiumPublicKeySpec(DilithiumParameterSpec.LEVEL2, publicKeyBytes));
+            
+            Signature sig = Signature.getInstance("Dilithium");
+            sig.initVerify(publicKeyForVerify);
+            sig.update(message.getBytes());
+            return sig.verify(signatureBytes);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException | SignatureException | InvalidKeyException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+            return false;
         }
     }
 }
