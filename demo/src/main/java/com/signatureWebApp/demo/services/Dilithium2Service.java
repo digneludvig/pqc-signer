@@ -3,7 +3,6 @@ package com.signatureWebApp.demo.services;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.signatureWebApp.demo.utils.KeyPairDTO;
@@ -11,10 +10,7 @@ import com.signatureWebApp.demo.utils.KeyPairDTO;
 import net.thiim.dilithium.interfaces.DilithiumParameterSpec;
 import net.thiim.dilithium.interfaces.DilithiumPrivateKeySpec;
 import net.thiim.dilithium.interfaces.DilithiumPublicKeySpec;
-import net.thiim.dilithium.provider.*;
 import net.thiim.dilithium.provider.DilithiumProvider;
-import net.thiim.dilithium.impl.PolyVec;
-import net.thiim.dilithium.impl.Poly;
 import java.util.Base64;
 
 
@@ -25,12 +21,6 @@ public class Dilithium2Service {
     public Dilithium2Service() {
         dp = new DilithiumProvider();
         Security.addProvider(dp);
-
-        for (Provider provider : Security.getProviders()) {
-            System.out.println(provider.getName());
-        }
-        // System.out.println(dp.getInfo());
-        System.out.println("Successfully generated key pair.");
     }
 
     public KeyPairDTO generateKeyPair() {
@@ -65,7 +55,6 @@ public class Dilithium2Service {
             return Base64.getEncoder().encodeToString(signature);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | SignatureException | InvalidKeyException e) {
             e.printStackTrace();
-            // Handle the exception appropriately
             return "Error signing message.";
         }
     }
@@ -83,7 +72,6 @@ public class Dilithium2Service {
             return sig.verify(signatureBytes);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | SignatureException | InvalidKeyException e) {
             e.printStackTrace();
-            // Handle the exception appropriately
             return false;
         }
     }
