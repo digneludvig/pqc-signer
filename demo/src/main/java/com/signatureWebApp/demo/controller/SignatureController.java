@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.signatureWebApp.demo.services.Dilithium2Service;
 
-import java.security.KeyPair;
-
 import com.signatureWebApp.demo.utils.KeyPairDTO;
 
 @RestController
@@ -21,7 +19,6 @@ public class SignatureController {
 
     @GetMapping("/dilithium2/keypair")
     public KeyPairDTO generateKeyPair() {
-        // This will initialize the Dilithium2Service and print the security providers
         return dilithium2Service.generateKeyPair();
     }
 
@@ -43,16 +40,8 @@ public class SignatureController {
             return privateKey;
         }
 
-        public void setPrivateKey(String privateKey) {
-            this.privateKey = privateKey;
-        }
-
         public String getMessage() {
             return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
         }
     }
 
@@ -65,24 +54,12 @@ public class SignatureController {
             return publicKey;
         }
 
-        public void setPublicKey(String publicKey) {
-            this.publicKey = publicKey;
-        }
-
         public String getMessage() {
             return message;
         }
 
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
         public String getSignature() {
             return signature;
-        }
-
-        public void setSignature(String signature) {
-            this.signature = signature;
         }
     }
 }
