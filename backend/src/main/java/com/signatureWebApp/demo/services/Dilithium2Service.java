@@ -26,10 +26,8 @@ public class Dilithium2Service {
     public KeyPairDTO generateKeyPair() {
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("Dilithium");
-            System.out.println("Successfully got instance of Dilithium provider.");
             keyPairGenerator.initialize(DilithiumParameterSpec.LEVEL2, new SecureRandom());
             KeyPair kp = keyPairGenerator.generateKeyPair();
-            System.out.println(kp.getPrivate());
 
             KeyPairDTO keyPairDTO = new KeyPairDTO();
             keyPairDTO.setPublicKey(Base64.getEncoder().encodeToString(kp.getPublic().getEncoded()));

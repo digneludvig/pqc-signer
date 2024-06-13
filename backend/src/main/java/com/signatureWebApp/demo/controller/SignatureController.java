@@ -10,6 +10,9 @@ import com.signatureWebApp.demo.services.Dilithium2Service;
 
 import com.signatureWebApp.demo.utils.KeyPairDTO;
 
+import org.springframework.http.ResponseEntity;
+import java.util.*;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -21,18 +24,34 @@ public class SignatureController {
     }
 
     @GetMapping("/dilithium2/keypair")
-    public KeyPairDTO generateKeyPair() {
-        return dilithium2Service.generateKeyPair();
+    public ResponseEntity<Map<String, String>> generateKeyPair() {
+        KeyPairDTO keypair = dilithium2Service.generateKeyPair();
+        Map<String, String> response = new HashMap<>();
+
+        response.put("privateKey", keypair.getPrivateKey());
+        response.put("publicKey", keypair.getPublicKey());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("dilithium2/sign")
-    public String signMessage(@RequestBody SignatureController.SignRequest request) {
-        return dilithium2Service.signMessage(request.getPrivateKey(), request.getMessage());
+    public ResponseEntity<Map<String, String>> signMessage(@RequestBody SignatureController.SignRequest request) {
+        String signature = dilithium2Service.signMessage(request.getPrivateKey(), request.getMessage());
+        Map<String, String> response = new HashMap<>();
+        
+        response.put("signature", signature);
+        
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("dilithium2/verify")
-    public Boolean verifySignature(@RequestBody SignatureController.VerifyRequest request) {
-        return dilithium2Service.verifySignature(request.getPublicKey(), request.getMessage(), request.getSignature());
+    public ResponseEntity<Map<String, String>> verifySignature(@RequestBody SignatureController.VerifyRequest request) {
+        Boolean isValid = dilithium2Service.verifySignature(request.getPublicKey(), request.getMessage(), request.getSignature());
+        Map<String, String> response = new HashMap<>();
+        
+        response.put("isVerified", isValid.toString());
+    
+        return ResponseEntity.ok(response);
     }
 
     public static class SignRequest {

@@ -46,7 +46,20 @@ class SignatureGenerator extends Component {
   }
 
   signMessage = () => {
+    const {message, privateKey} = this.state;
 
+    fetch(`${API_BASE_URL}/dilithium2/sign`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({message, privateKey}),
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({signature: data.signature});
+    })
+    .catch(error => console.error('Error:', error))
   }
 
   handleInputChange = (e) => {
@@ -82,6 +95,71 @@ class SignatureGenerator extends Component {
   }
 }
 
+class SignatureVerifier extends Component {
+  state = {
+    message: '',
+    publicKey: '',
+    signature: '',
+    isVerified: ''
+  }
+
+  verifySignature = () => {
+    const{message, publicKey, signature} = this.state;
+
+    fetch(`${API_BASE_URL}/dilithium2/verify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({message, publicKey, signature}),
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({isVerified: data.isVerified});
+    })
+    .catch(error => console.error('Error:', error))
+  }
+
+  handleInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          name="signature"
+          placeholder="Signature to verify"
+          value={this.state.signature}
+          onChange={this.handleInputChange}
+        />
+        <input
+          type="text"
+          name="publicKey"
+          placeholder="Public key"
+          value={this.state.publicKey}
+          onChange={this.handleInputChange}
+        />
+        <input
+          type="text"
+          name="message"
+          placeholder="Original message"
+          value={this.state.message}
+          onChange={this.handleInputChange}
+        />
+        <button onClick={this.verifySignature}>Verify</button>
+        <div>
+          <h3>Verified:</h3>
+          <textarea readOnly value={this.state.isVerified} />
+        </div>
+      </div>
+    )
+  }
+}
+
 class App extends Component {
   render() {
     return (
@@ -93,6 +171,7 @@ class App extends Component {
         <h2>Press button below to gen keypair.</h2>
         <KeyPairGenerator />
         <SignatureGenerator />
+        <SignatureVerifier />
       </div>
     );
   }
