@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SignatureVerifier = ({apiBaseUrl, algorithm}) => {
+const SignatureVerifier = ({ apiBaseUrl, algorithm }) => {
   const [state, setState] = useState({
     message: '',
     publicKey: '',
@@ -31,31 +31,48 @@ const SignatureVerifier = ({apiBaseUrl, algorithm}) => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        name="signature"
-        placeholder="Signature to verify"
-        value={state.signature}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="publicKey"
-        placeholder="Public key"
-        value={state.publicKey}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="message"
-        placeholder="Original message"
-        value={state.message}
-        onChange={handleInputChange}
-      />
-      <button onClick={verifySignature}>Verify</button>
+    <div className='flexcontainer-verify'>
+      <h2>Verify signature</h2>
+      <div className='flexcontainer-verify-input'>
+        <div>
+          <h5>Signature to verify</h5>
+          <textarea
+            name="signature"
+            placeholder="Signature"
+            value={state.signature}
+            onChange={handleInputChange}
+            rows={5}
+            cols={20}
+          />
+        </div>
+        <div>
+          <h5>Public key</h5>
+          <textarea
+            name="publicKey"
+            placeholder="Public key"
+            value={state.publicKey}
+            onChange={handleInputChange}
+            rows={5}
+            cols={20}
+          />
+        </div>
+        <div>
+          <h5>Original message</h5>
+          <textarea
+            name="message"
+            placeholder="Original message"
+            value={state.message}
+            onChange={handleInputChange}
+            rows={5}
+            cols={20}
+          />
+        </div>
+      </div>
+      <div className='verify-button'>
+        <button onClick={verifySignature}>Verify</button>
+      </div>
       <div>
-        <h3>Verified:</h3>
+        <h5>Verified (true / false)</h5>
         <textarea readOnly value={state.isVerified} />
       </div>
     </div>

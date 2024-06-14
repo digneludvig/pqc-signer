@@ -15,16 +15,27 @@ const KeyPairGenerator = ({apiBaseUrl, algorithm}) => {
       .catch(error => console.error('Error:', error));
   };
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  }
+
   return (
-    <div>
-      <button onClick={generateKeyPair}>Generate Key Pair</button>
+    <div className='flexcontainer-keygen'>
+      <h2>Generate keys</h2>
       <div>
-        <h3>Private Key:</h3>
-        <textarea readOnly value={keyPair.privateKey} />
+        <button onClick={generateKeyPair}>Generate keypair</button>
       </div>
-      <div>
-        <h3>Public Key:</h3>
-        <textarea readOnly value={keyPair.publicKey} />
+      <div className="flexcontainer-keypair">
+        <div className="flexcontainer-key">
+          <h5>Private key</h5>
+          <textarea readOnly value={keyPair.privateKey} rows={10} cols={40}/>
+          <button onClick={() => copyToClipboard(keyPair.privateKey)}>Copy private key clipboard</button>
+        </div>
+        <div className="flexcontainer-key">
+          <h5>Public key</h5>
+          <textarea readOnly value={keyPair.publicKey} rows={10} cols={40}/>
+          <button onClick={() => copyToClipboard(keyPair.publicKey)}>Copy public key clipboard</button>
+        </div>
       </div>
     </div>
   );

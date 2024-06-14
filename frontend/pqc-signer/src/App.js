@@ -25,11 +25,12 @@ class App extends Component {
           <h2>Welcome to PQC Signer</h2>
           <h3>A simple tool to play with PQC signatures.</h3>
         </div>
-        <AlgorithmPicker selectedAlgorithm={selectedAlgorithm} onAlgorithmChange={this.handleAlgorithmChange} />
-        <h2>Press button below to gen keypair.</h2>
-        <KeyPairGenerator apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} />
-        <SignatureGenerator apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} />
-        <SignatureVerifier apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} />
+        <div className="flex-container-outer">
+          <div><AlgorithmPicker selectedAlgorithm={selectedAlgorithm} onAlgorithmChange={this.handleAlgorithmChange} /></div>
+          <div><KeyPairGenerator apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} /></div>
+          <div><SignatureGenerator apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} /></div>
+          <div><SignatureVerifier apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} /></div>
+        </div>
       </div>
     );
   }

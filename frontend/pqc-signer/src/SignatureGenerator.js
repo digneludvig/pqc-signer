@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SignatureGenerator = ({apiBaseUrl, algorithm}) => {
+const SignatureGenerator = ({ apiBaseUrl, algorithm }) => {
   const [state, setState] = useState({
     message: '',
     privateKey: '',
@@ -24,31 +24,50 @@ const SignatureGenerator = ({apiBaseUrl, algorithm}) => {
       .catch(error => console.error('Error:', error));
   };
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setState(prevState => ({ ...prevState, [name]: value }));
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        name="message"
-        placeholder="Message to sign"
-        value={state.message}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="privateKey"
-        placeholder="Private key"
-        value={state.privateKey}
-        onChange={handleInputChange}
-      />
-      <button onClick={signMessage}>Sign</button>
-      <div>
-        <h3>Signature:</h3>
-        <textarea readOnly value={state.signature} />
+    <div className="flexcontainer-sign">
+      <h2>Generate signature</h2>
+      <div className="flexcontainer-sign-input">
+        <div>
+          <h5>Message to sign</h5>
+          <textarea
+            name="message"
+            placeholder="I assure you, I am who I say I am..."
+            value={state.message}
+            onChange={handleInputChange}
+            rows={5}
+            cols={30}
+          />
+        </div>
+        <div>
+          <h5>Private key</h5>
+          <textarea
+            name="privateKey"
+            placeholder="Private key"
+            value={state.privateKey}
+            onChange={handleInputChange}
+            rows={5}
+            cols={30}
+          />
+        </div>
+      </div>
+      <div className='sign-button'>
+        <button name="sign" onClick={signMessage}>Sign</button>
+      </div>
+
+      <div className="flexcontainer-sign-output">
+        <h5>Signature</h5>
+        <textarea readOnly value={state.signature} rows={5} cols={65}/>
+        <button onClick={() => copyToClipboard(state.signature)}>Copy signature to clipboard</button>
       </div>
     </div>
   );

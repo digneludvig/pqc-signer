@@ -2,11 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
   background-color: #222;
   height: 150px;
@@ -22,3 +17,110 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+select {
+  font-size: 1.5em;
+  padding: 10px;
+}
+
+h5 {
+  font-weight: 100;
+  margin-bottom: 2px;
+}
+
+.flex-container-outer > div {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.flex-container-outer > div:first-child {
+  border-top: none;
+}
+
+.algorithm-label {
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+
+.flex-container-outer {
+  margin-top: 30px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  background-color: white;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flexcontainer-keygen {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexcontainer-keypair {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+.flexcontainer-key {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexcontainer-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flexcontainer-sign-input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.flexcontainer-sign-output {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-button, .verify-button {
+  margin-top: 24px;
+}
+
+.flexcontainer-verify {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexcontainer-verify-input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+button {
+  border-radius: 5px;
+  padding: 8px 12px 8px 12px;
+  border: 1px solid #ccc;
+}
+
+button:hover {
+  background-color: #9d9d9d;
+  color: white;
+}
+
+button:active {
+  background-color: #333;
+  transform: scale(0.96);
+}
+
+textarea {
+  resize: none;
+}
+
