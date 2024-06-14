@@ -9,7 +9,7 @@ function AlgorithmPicker({selectedAlgorithm, onAlgorithmChange}) {
       <label>
         Choose algorithm:
         <select name="selectedAlgorithm" value={selectedAlgorithm} onChange={handleChange}>
-          <option value="dilitihum2">Dilithium-2</option>
+          <option value="dilithium2">Dilithium-2</option>
           <option value="dilithium3">Dilithium-3</option>
           <option value="dilithium5">Dilithium-5</option>
         </select>

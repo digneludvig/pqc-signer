@@ -1,4 +1,4 @@
-package com.signatureWebApp.demo.services;
+package com.signatureWebApp.demo.services.Dilithium;
 
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -15,18 +15,20 @@ import java.util.Base64;
 
 
 @Service
-public class Dilithium2Service {
+public abstract class DilithiumService {
     DilithiumProvider dp;
 
-    public Dilithium2Service() {
+    public DilithiumService() {
         dp = new DilithiumProvider();
         Security.addProvider(dp);
     }
 
+    protected abstract DilithiumParameterSpec getLevel();
+
     public KeyPairDTO generateKeyPair() {
         try {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("Dilithium");
-            keyPairGenerator.initialize(DilithiumParameterSpec.LEVEL2, new SecureRandom());
+            keyPairGenerator.initialize(getLevel(), new SecureRandom());
             KeyPair kp = keyPairGenerator.generateKeyPair();
 
             KeyPairDTO keyPairDTO = new KeyPairDTO();
@@ -44,7 +46,7 @@ public class Dilithium2Service {
         try {
             byte[] privateKeyBytes = Base64.getDecoder().decode(privateKey);
             KeyFactory keyFactory = KeyFactory.getInstance("Dilithium");
-            PrivateKey privateKeyForSign = keyFactory.generatePrivate(new DilithiumPrivateKeySpec(DilithiumParameterSpec.LEVEL2, privateKeyBytes));
+            PrivateKey privateKeyForSign = keyFactory.generatePrivate(new DilithiumPrivateKeySpec(getLevel(), privateKeyBytes));
             
             Signature sig = Signature.getInstance("Dilithium");
             sig.initSign(privateKeyForSign);
@@ -62,7 +64,7 @@ public class Dilithium2Service {
             byte[] publicKeyBytes = Base64.getDecoder().decode(publicKey);
             byte[] signatureBytes = Base64.getDecoder().decode(signature);
             KeyFactory keyFactory = KeyFactory.getInstance("Dilithium");
-            PublicKey publicKeyForVerify = keyFactory.generatePublic(new DilithiumPublicKeySpec(DilithiumParameterSpec.LEVEL2, publicKeyBytes));
+            PublicKey publicKeyForVerify = keyFactory.generatePublic(new DilithiumPublicKeySpec(getLevel(), publicKeyBytes));
             
             Signature sig = Signature.getInstance("Dilithium");
             sig.initVerify(publicKeyForVerify);
