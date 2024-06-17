@@ -32,7 +32,7 @@ const SignatureVerifier = ({ apiBaseUrl, algorithm }) => {
 
   return (
     <div className='flexcontainer-verify'>
-      <h2>Verify signature</h2>
+      <h3>Verify signature ☑️</h3>
       <div className='flexcontainer-verify-input'>
         <div>
           <h5>Signature to verify</h5>
@@ -73,7 +73,7 @@ const SignatureVerifier = ({ apiBaseUrl, algorithm }) => {
       </div>
       <div>
         <h5>Verified (true / false)</h5>
-        <textarea readOnly value={state.isVerified} />
+        <textarea className='verified-bool' readOnly value={state.isVerified} rows={1} cols={4}/>
       </div>
     </div>
   );

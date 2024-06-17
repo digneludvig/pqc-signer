@@ -21,19 +21,19 @@ const KeyPairGenerator = ({apiBaseUrl, algorithm}) => {
 
   return (
     <div className='flexcontainer-keygen'>
-      <h2>Generate keys</h2>
+      <h3>Generate keys 🔑</h3>
       <div>
         <button onClick={generateKeyPair}>Generate keypair</button>
       </div>
       <div className="flexcontainer-keypair">
         <div className="flexcontainer-key">
           <h5>Private key</h5>
-          <textarea readOnly value={keyPair.privateKey} rows={10} cols={40}/>
+          <textarea className='copyable' readOnly value={keyPair.privateKey} rows={10} cols={40}/>
           <button onClick={() => copyToClipboard(keyPair.privateKey)}>Copy private key clipboard</button>
         </div>
         <div className="flexcontainer-key">
           <h5>Public key</h5>
-          <textarea readOnly value={keyPair.publicKey} rows={10} cols={40}/>
+          <textarea className='copyable' readOnly value={keyPair.publicKey} rows={10} cols={40}/>
           <button onClick={() => copyToClipboard(keyPair.publicKey)}>Copy public key clipboard</button>
         </div>
       </div>

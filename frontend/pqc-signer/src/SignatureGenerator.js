@@ -35,7 +35,7 @@ const SignatureGenerator = ({ apiBaseUrl, algorithm }) => {
 
   return (
     <div className="flexcontainer-sign">
-      <h2>Generate signature</h2>
+      <h3>Generate signature ✍️</h3>
       <div className="flexcontainer-sign-input">
         <div>
           <h5>Message to sign</h5>
@@ -66,7 +66,7 @@ const SignatureGenerator = ({ apiBaseUrl, algorithm }) => {
 
       <div className="flexcontainer-sign-output">
         <h5>Signature</h5>
-        <textarea readOnly value={state.signature} rows={5} cols={65}/>
+        <textarea className='copyable' readOnly value={state.signature} rows={5} cols={65}/>
         <button onClick={() => copyToClipboard(state.signature)}>Copy signature to clipboard</button>
       </div>
     </div>

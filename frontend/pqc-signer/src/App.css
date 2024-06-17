@@ -1,9 +1,9 @@
 .App {
   text-align: center;
+  background: linear-gradient(0deg, #00397a, #40bfea);
 }
 
 .App-header {
-  background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
@@ -28,6 +28,16 @@ h5 {
   margin-bottom: 2px;
 }
 
+h3 {
+  font-weight: 100;
+  font-size: large;
+}
+
+h2 {
+  font-weight: 100;
+  font-size: x-large;
+}
+
 .flex-container-outer > div {
   border-top: 1px solid #ccc;
   padding-top: 20px;
@@ -43,14 +53,11 @@ h5 {
 }
 
 .flex-container-outer {
-  margin-top: 30px;
-  margin-bottom: 100px;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   gap: 50px;
   align-items: center;
-  background-color: white;
-
   margin-left: auto;
   margin-right: auto;
 }
@@ -105,22 +112,33 @@ h5 {
 }
 
 button {
-  border-radius: 5px;
+  border-radius: 4px;
   padding: 8px 12px 8px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #5c9dff;
+  background-color: white;
 }
 
 button:hover {
-  background-color: #9d9d9d;
-  color: white;
+  background-color: #cde9ff;
+  border: 1px solid white;
 }
 
 button:active {
-  background-color: #333;
+  background-color: #88c0ff;
   transform: scale(0.96);
 }
 
 textarea {
   resize: none;
+  border: 1px solid #1075e0;
+  border-radius: 4px;
+  background-color: rgb(193, 223, 255);
 }
 
+.copyable {
+  margin-bottom: 4px;
+}
+
+.verified-bool {
+  font-size: xx-large;
+}
