@@ -10,13 +10,6 @@ const API_BASE_URL = 'http://localhost:8080'
 class App extends Component {
   state = {
     selectedAlgorithm: 'dilithium2',
-    outputFormat: 'base64',
-  }
-
-  toggleOutputFormat = () => {
-    this.setState(prevState => ({
-      outputFormat: prevState.outputFormat === 'base64' ? 'hex' : 'base64'
-    }));
   }
 
   handleAlgorithmChange = (selectedAlgorithm) => {
@@ -33,8 +26,9 @@ class App extends Component {
           <h2>A simple tool to play with PQC signatures.</h2>
         </div>
         <div className="flex-container-outer">
-          <div><AlgorithmPicker selectedAlgorithm={selectedAlgorithm} onAlgorithmChange={this.handleAlgorithmChange} /></div>
-          <button onClick={this.toggleOutputFormat}>Toggle hex / base64</button>
+          <div>
+            <AlgorithmPicker selectedAlgorithm={selectedAlgorithm} onAlgorithmChange={this.handleAlgorithmChange} />
+          </div>
           <div><KeyPairGenerator apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} /></div>
           <div><SignatureGenerator apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} /></div>
           <div><SignatureVerifier apiBaseUrl={API_BASE_URL} algorithm={selectedAlgorithm} /></div>

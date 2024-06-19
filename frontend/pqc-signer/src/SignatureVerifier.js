@@ -5,7 +5,7 @@ const SignatureVerifier = ({ apiBaseUrl, algorithm }) => {
     message: '',
     publicKey: '',
     signature: '',
-    isVerified: ''
+    isVerified: '',
   });
 
   const verifySignature = () => {
@@ -20,7 +20,10 @@ const SignatureVerifier = ({ apiBaseUrl, algorithm }) => {
     })
       .then(response => response.json())
       .then(data => {
-        setState(prevState => ({ ...prevState, isVerified: data.isVerified }));
+        setState(prevState => ({
+          ...prevState,
+          isVerified: data.isVerified,
+        }));
       })
       .catch(error => console.error('Error:', error));
   };
@@ -73,7 +76,13 @@ const SignatureVerifier = ({ apiBaseUrl, algorithm }) => {
       </div>
       <div>
         <h5>Verified (true / false)</h5>
-        <textarea className='verified-bool' readOnly value={state.isVerified} rows={1} cols={4}/>
+        <div className='verification-result'>
+          {state.isVerified !== '' && (
+            <div className="animate">
+              {state.isVerified === 'true' ? '✅' : '❌'}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

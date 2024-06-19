@@ -112,20 +112,27 @@ h2 {
 }
 
 button {
-  border-radius: 4px;
-  padding: 8px 12px 8px 12px;
-  border: 1px solid #5c9dff;
-  background-color: white;
+  background-color: #4CAF50; /* Green background */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  cursor: pointer; /* Change mouse cursor to pointer */
+  border-radius: 5px; /* Rounded corners */
 }
 
 button:hover {
-  background-color: #cde9ff;
-  border: 1px solid white;
+  background-color: #45a049;
 }
 
 button:active {
-  background-color: #88c0ff;
-  transform: scale(0.96);
+  background-color: #397d35;
+  transform: scale(0.98);
 }
 
 textarea {
@@ -139,6 +146,15 @@ textarea {
   margin-bottom: 4px;
 }
 
-.verified-bool {
-  font-size: xx-large;
+.icon {
+  font-size: 24px;
+}
+
+.animate {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
