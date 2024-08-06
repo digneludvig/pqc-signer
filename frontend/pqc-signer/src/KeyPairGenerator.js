@@ -1,10 +1,28 @@
 import React, { useState } from 'react';
 
+const { getKernel } = require('falcon-sign');
+
 const KeyPairGenerator = ({apiBaseUrl, algorithm}) => {
   const [keyPair, setKeyPair] = useState({ privateKey: '', publicKey: '' });
 
+  const generateFalconKeypair = async() => {
+    try {
+      let Falcon512 = await getKernel('falcon512_n3_v1');
+      let keypair = Falcon512.genkey();
+      setKeyPair({
+        privateKey: keypair.sk,
+        publicKey: keypair.pk,
+      });
+    } catch (error) {
+      console.error('Error generating Falcon keypair: ', error);
+    }
+  }
+
   const generateKeyPair = () => {
-    fetch(`${apiBaseUrl}/${algorithm}/keypair`, {method: 'GET'})
+    if (algorithm === 'falcon512') {
+      generateFalconKeypair();
+    } else {
+      fetch(`${apiBaseUrl}/${algorithm}/keypair`, {method: 'GET'})
       .then(response => response.json())
       .then(data => {
         setKeyPair({
@@ -13,6 +31,7 @@ const KeyPairGenerator = ({apiBaseUrl, algorithm}) => {
         });
       })
       .catch(error => console.error('Error:', error));
+    }
   };
 
   const copyToClipboard = (text) => {
