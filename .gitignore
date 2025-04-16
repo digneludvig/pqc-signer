@@ -1,3 +1,4 @@
 /backend-python/venv/
 /backend-python/__pycache__/
 /.vscode
+/frontend/pqc-signer/package-lock.json
