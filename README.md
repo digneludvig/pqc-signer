@@ -29,7 +29,20 @@ Run backend from root of backend directory
 mvn spring-boot:run
 ```
 
-To run frontend, navigate to /pqc-signer/frontend/pqc-signer/ and run
+To run frontend, navigate to /pqc-signer/frontend/pqc-signer/ and run (in a new window)
 ```bash
+cd ../frontend/pqc-signer
 npm install
-npm start```
+npm start
+```
+
+Should now be up and running.
+
+### For reference, my maven and java-sdk version:
+```bash
+$ mvn -v
+Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+<omitted>
+Java version: 21.0.6, vendor: Ubuntu, runtime: /usr/lib/jvm/java-21-openjdk-amd64
+<omitted>
+```
