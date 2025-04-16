@@ -10,7 +10,7 @@ Gif of what it looks like and how it works:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/digneludvig/pqc-signer.git
+git clone --recurse-submodules https://github.com/digneludvig/pqc-signer.git
 cd pqc-signer
 ```
 ### Install dependencies and run
