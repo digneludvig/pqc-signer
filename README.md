@@ -7,7 +7,7 @@ Gif of what it looks like and how it works:
 
 ## Setup Steps
 
-### Clone the repository
+### Clone the repository (with Dilithium submodule)
 
 ```bash
 git clone --recurse-submodules https://github.com/digneludvig/pqc-signer.git
