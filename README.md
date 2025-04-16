@@ -38,7 +38,7 @@ npm start
 
 Should now be up and running.
 
-### For reference, my maven and java-sdk version:
+### For reference, my maven and java version:
 ```bash
 $ mvn -v
 Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
